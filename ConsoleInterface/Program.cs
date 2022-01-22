@@ -9,7 +9,7 @@ namespace ConsoleInterface
         {
             var loggerFactory = LoggerFactory.Create(b => b.AddConsole());
             var outputFormatter = OriginalFilenameOutputFormatter.Create(@"C:\Users\nutiu\Downloads\Photos-001\clean");
-            var executor = TasksExecutor.Create();
+            var executor = TaskExecutor.Create();
             executor.Logger = loggerFactory.CreateLogger("Executor");
             executor.ParallelCleanImages(new[]
             {
