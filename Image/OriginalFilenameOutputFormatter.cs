@@ -14,7 +14,7 @@ namespace Image
 
         public string FormatOutputPath(string filePath)
         {
-            var fileName = Path.GetFileName(filePath);
+            var fileName = Path.GetFileName(filePath)?.Split(".")[0];
             var path = Path.Join(_rootDirectory, $"{fileName}.jpg");
             return path;
         }
