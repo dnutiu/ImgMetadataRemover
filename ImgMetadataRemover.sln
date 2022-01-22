@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Image", "Image\Image.csproj", "{10AD7910-C8AA-43ED-9231-EBE267AC270F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleInterface", "ConsoleInterface\ConsoleInterface.csproj", "{F04E0337-23D3-4209-9BDE-B798090A7A63}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{10AD7910-C8AA-43ED-9231-EBE267AC270F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{10AD7910-C8AA-43ED-9231-EBE267AC270F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{10AD7910-C8AA-43ED-9231-EBE267AC270F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{10AD7910-C8AA-43ED-9231-EBE267AC270F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F04E0337-23D3-4209-9BDE-B798090A7A63}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F04E0337-23D3-4209-9BDE-B798090A7A63}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F04E0337-23D3-4209-9BDE-B798090A7A63}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F04E0337-23D3-4209-9BDE-B798090A7A63}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
