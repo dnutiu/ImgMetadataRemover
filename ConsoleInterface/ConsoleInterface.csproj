@@ -3,10 +3,16 @@
     <PropertyGroup>
         <OutputType>Exe</OutputType>
         <TargetFramework>netcoreapp3.1</TargetFramework>
+        <AssemblyName>metadata_remover</AssemblyName>
+        <PublishSingleFile>true</PublishSingleFile>
+        <SelfContained>true</SelfContained>
+        <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+        <PublishReadyToRun>true</PublishReadyToRun>
     </PropertyGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\Image\Image.csproj"/>
+        <PackageReference Include="CommandLineParser" Version="2.8.0"/>
+        <ProjectReference Include="..\ImageCore\ImageCore.csproj"/>
         <PackageReference Include="Microsoft.Extensions.Logging" Version="6.0.0"/>
         <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="6.0.0"/>
     </ItemGroup>

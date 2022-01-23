@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Image", "Image\Image.csproj", "{10AD7910-C8AA-43ED-9231-EBE267AC270F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageCore", "ImageCore\ImageCore.csproj", "{10AD7910-C8AA-43ED-9231-EBE267AC270F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleInterface", "ConsoleInterface\ConsoleInterface.csproj", "{F04E0337-23D3-4209-9BDE-B798090A7A63}"
 EndProject
