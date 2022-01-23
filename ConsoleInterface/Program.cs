@@ -10,40 +10,60 @@ namespace ConsoleInterface
 {
     internal static class Program
     {
+        /// <summary>
+        ///     The console interface for the project and the main entrypoint.
+        /// </summary>
+        /// <param name="args">Command line provided args.</param>
         private static void Main(string[] args)
         {
             Parser.Default.ParseArguments<Options>(args).WithParsed(RunOptions);
         }
 
+        /// <summary>
+        ///     RunOptions will be called after the command-line arguments were successfully parsed.
+        /// </summary>
         private static void RunOptions(Options options)
         {
             var loggerFactory = LoggerFactory.Create(b => b.AddConsole());
             TaskExecutor.Logger = loggerFactory.CreateLogger(nameof(TaskExecutor));
-            FilesRetriever.Logger = loggerFactory.CreateLogger(nameof(FilesRetriever));
-            OriginalFilenameOutputFormatter.Logger =
-                loggerFactory.CreateLogger(nameof(OriginalFilenameOutputFormatter));
+            LocalSystemFilesRetriever.Logger = loggerFactory.CreateLogger(nameof(LocalSystemFilesRetriever));
+            OriginalFilenameFileOutputPathFormatter.Logger =
+                loggerFactory.CreateLogger(nameof(OriginalFilenameFileOutputPathFormatter));
 
-            var outputFormatter = OriginalFilenameOutputFormatter.Create(options.DestinationDirectory);
+            var outputFormatter = OriginalFilenameFileOutputPathFormatter.Create(options.DestinationDirectory);
             var executor = TaskExecutor.Create(new TaskExecutorOptions
             {
                 EnableCompression = options.CompressFiles is true,
-                OutputFormatter = outputFormatter
+                FileOutputPathFormatter = outputFormatter
             });
-            var filesRetriever = FilesRetriever.Create();
+            var filesRetriever = LocalSystemFilesRetriever.Create();
 
 
             executor.ParallelCleanImages(filesRetriever.GetFilenamesFromPath(options.SourceDirectory));
         }
 
+        /// <summary>
+        ///     Options is a class defining command line options supported by this program.
+        /// </summary>
         public class Options
         {
+            /// <summary>
+            ///     CompressFiles indicates whether files should be compressed after being cleaned.
+            /// </summary>
             [Option('c', "compress", Required = false, HelpText = "Compress images after cleaning.", Default = true)]
             public bool? CompressFiles { get; set; }
 
-            [Option('d', "dest", Required = false, HelpText = "The destination directory.", Default = "./cleaned")]
+            /// <summary>
+            ///     DestinationDirectory represents the destination directory for the cleaned images.
+            /// </summary>
+            [Option('d', "dest", Required = false, HelpText = "The destination directory for the cleaned images.",
+                Default = "./cleaned")]
             public string DestinationDirectory { get; set; }
 
-            [Value(0, MetaName = "source", HelpText = "The source directory.", Default = ".")]
+            /// <summary>
+            ///     SourceDirectory represents the source directory of images.
+            /// </summary>
+            [Value(0, MetaName = "source", HelpText = "The source directory of images.", Default = ".")]
             public string SourceDirectory { get; set; }
         }
     }
