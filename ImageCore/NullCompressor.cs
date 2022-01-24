@@ -5,7 +5,7 @@
     /// </summary>
     public class NullCompressor : ICompressor
     {
-        public static readonly NullCompressor Instance = new NullCompressor();
+        public static readonly NullCompressor Instance = new();
 
         /// <summary>
         ///     <inheritdoc />
