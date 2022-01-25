@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using GuardNet;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 
@@ -19,6 +20,10 @@ namespace Image
         /// <param name="outputDirectory">The output directory.</param>
         public OriginalFilenameFileOutputPathFormatter(string outputDirectory)
         {
+            if (outputDirectory.Equals(""))
+            {
+                outputDirectory = ".";
+            }
             _outputDirectory = outputDirectory;
         }
 
@@ -29,6 +34,7 @@ namespace Image
         /// <returns>An absolute path of the form output_directory/initialFileName.jpg</returns>
         public string GetOutputPath(string initialFilePath)
         {
+            Guard.NotNullOrEmpty(initialFilePath, nameof(initialFilePath));
             var fileName = Path.GetFileName(initialFilePath)?.Split(".")[0];
             var path = Path.Join(_outputDirectory, $"{fileName}.jpg");
             return path;
