@@ -19,12 +19,6 @@ namespace Image
         /// <param name="outputDirectory">The output directory.</param>
         public OriginalFilenameFileOutputPathFormatter(string outputDirectory)
         {
-            if (!Directory.Exists(outputDirectory))
-            {
-                Logger.LogWarning("Output directory does not exists. Creating.");
-                Directory.CreateDirectory(outputDirectory);
-            }
-
             _outputDirectory = outputDirectory;
         }
 

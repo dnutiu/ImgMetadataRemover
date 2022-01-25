@@ -1,6 +1,8 @@
-﻿using CommandLine;
+﻿using System.IO;
+using CommandLine;
 using Image;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Abstractions;
 
 // ReSharper disable MemberCanBePrivate.Global
 // ReSharper disable ClassNeverInstantiated.Global
@@ -10,6 +12,8 @@ namespace ConsoleInterface
 {
     internal static class Program
     {
+        private static readonly ILogger Logger = NullLogger.Instance;
+        
         /// <summary>
         ///     The console interface for the project and the main entrypoint.
         /// </summary>
@@ -30,6 +34,7 @@ namespace ConsoleInterface
             OriginalFilenameFileOutputPathFormatter.Logger =
                 loggerFactory.CreateLogger(nameof(OriginalFilenameFileOutputPathFormatter));
 
+            CreateDestinationDirectory(options.DestinationDirectory);
             var outputFormatter = OriginalFilenameFileOutputPathFormatter.Create(options.DestinationDirectory);
             var executor = TaskExecutor.Create(new TaskExecutorOptions
             {
@@ -40,6 +45,17 @@ namespace ConsoleInterface
 
 
             executor.ParallelCleanImages(filesRetriever.GetFilenamesFromPath(options.SourceDirectory));
+        }
+
+        /// <summary>
+        /// Creates the directory if it doesn't exist.
+        /// </summary>
+        /// <param name="destinationDirectory">The destination directory.</param>
+        private static void CreateDestinationDirectory(string destinationDirectory)
+        {
+            if (Directory.Exists(destinationDirectory)) return;
+            Logger.LogWarning("Output directory does not exist. Creating.");
+            Directory.CreateDirectory(destinationDirectory);
         }
 
         /// <summary>
