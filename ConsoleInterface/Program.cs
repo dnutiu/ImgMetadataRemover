@@ -1,6 +1,8 @@
 ﻿using System.IO;
 using CommandLine;
 using Image;
+using Image.Files;
+using Image.Output;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 
@@ -31,15 +33,15 @@ namespace ConsoleInterface
             var loggerFactory = LoggerFactory.Create(b => b.AddConsole());
             TaskExecutor.Logger = loggerFactory.CreateLogger(nameof(TaskExecutor));
             LocalSystemFilesRetriever.Logger = loggerFactory.CreateLogger(nameof(LocalSystemFilesRetriever));
-            OriginalFilenameFileOutputPathFormatter.Logger =
-                loggerFactory.CreateLogger(nameof(OriginalFilenameFileOutputPathFormatter));
+            KeepFilenameFormatter.Logger =
+                loggerFactory.CreateLogger(nameof(KeepFilenameFormatter));
 
             CreateDestinationDirectory(options.DestinationDirectory);
-            var outputFormatter = OriginalFilenameFileOutputPathFormatter.Create(options.DestinationDirectory);
+            var outputFormatter = KeepFilenameFormatter.Create(options.DestinationDirectory);
             var executor = TaskExecutor.Create(new TaskExecutorOptions
             {
                 EnableCompression = options.CompressFiles is true,
-                FileOutputPathFormatter = outputFormatter
+                FileOutputFormatter = outputFormatter
             });
             var filesRetriever = LocalSystemFilesRetriever.Create();
 

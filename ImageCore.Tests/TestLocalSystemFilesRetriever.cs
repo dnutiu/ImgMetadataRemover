@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Image;
+using Image.Files;
 using Xunit;
 
 namespace ImageCore.Tests

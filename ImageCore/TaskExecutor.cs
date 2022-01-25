@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Image.Compressor;
+using Image.Remover;
 using ImageMagick;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
@@ -50,8 +52,8 @@ namespace Image
                 if (_options.EnableCompression) compressor = LosslessCompressor.Instance;
 
                 Logger.LogDebug(
-                    $"Cleaning {fileName}, compression {_options.EnableCompression}, outputFormatter {nameof(_options.FileOutputPathFormatter)}.");
-                IMetadataRemover metadataRemover = new MetadataRemover(imageMagick, compressor);
+                    $"Cleaning {fileName}, compression {_options.EnableCompression}, outputFormatter {nameof(_options.FileOutputFormatter)}.");
+                IMetadataRemover metadataRemover = new ExifMetadataRemoverAndCompressor(imageMagick, compressor);
                 metadataRemover.CleanImage(newFilename);
                 return true;
             }
@@ -80,7 +82,7 @@ namespace Image
             foreach (var fileName in filenamesArray)
             {
                 var task = new Task<bool>(() =>
-                    CleanImage(fileName, _options.FileOutputPathFormatter.GetOutputPath(fileName)));
+                    CleanImage(fileName, _options.FileOutputFormatter.GetOutputPath(fileName)));
                 tasks.Add(task);
                 task.Start();
             }

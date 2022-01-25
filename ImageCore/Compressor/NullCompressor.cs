@@ -1,4 +1,4 @@
-﻿namespace Image
+﻿namespace Image.Compressor
 {
     /// <summary>
     ///     Does nothing. Using this Compressor will have no effect.

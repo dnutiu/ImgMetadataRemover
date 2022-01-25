@@ -1,6 +1,6 @@
 ﻿using ImageMagick;
 
-namespace Image
+namespace Image.Compressor
 {
     /// <summary>
     ///     LosslessCompressor compresses an image using lossless compression provided by ImageMagick.

@@ -1,4 +1,5 @@
 ﻿using System;
+using Image.Output;
 
 namespace Image
 {
@@ -7,16 +8,16 @@ namespace Image
     /// </summary>
     public class TaskExecutorOptions
     {
-        private IFileOutputPathFormatter _fileOutputPathFormatter;
+        private IFileOutputFormatter _fileOutputFormatter;
 
         /// <summary>
         ///     The file output path formatter. It cannot be null.
-        ///     A implementation of <see cref="IFileOutputPathFormatter" />.
+        ///     A implementation of <see cref="IFileOutputFormatter" />.
         /// </summary>
-        public IFileOutputPathFormatter FileOutputPathFormatter
+        public IFileOutputFormatter FileOutputFormatter
         {
-            get => _fileOutputPathFormatter;
-            set => _fileOutputPathFormatter = value ?? throw new ArgumentException("Output formatter cannot be null!");
+            get => _fileOutputFormatter;
+            set => _fileOutputFormatter = value ?? throw new ArgumentException("Output formatter cannot be null!");
         }
 
         /// <summary>

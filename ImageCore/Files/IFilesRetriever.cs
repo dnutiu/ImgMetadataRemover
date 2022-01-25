@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Image
+namespace Image.Files
 {
     /// <summary>
     ///     An to interface enabling implementation of filename retrievers.

@@ -1,4 +1,4 @@
-﻿namespace Image
+﻿namespace Image.Compressor
 {
     /// <summary>
     ///     ICompressor is an interface for implementing image compressors.

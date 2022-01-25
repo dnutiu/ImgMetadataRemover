@@ -3,13 +3,13 @@ using GuardNet;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 
-namespace Image
+namespace Image.Output
 {
     /// <summary>
-    ///     OriginalFilenameFileOutputPathFormatter keeps the original file name of the image when formatting the new output
+    ///     KeepFilenameFormatter keeps the original file name of the image when formatting the new output
     ///     path.
     /// </summary>
-    public class OriginalFilenameFileOutputPathFormatter : IFileOutputPathFormatter
+    public class KeepFilenameFormatter : IFileOutputFormatter
     {
         public static ILogger Logger = NullLogger.Instance;
         private readonly string _outputDirectory;
@@ -18,7 +18,7 @@ namespace Image
         ///     Creates an instance of OriginalFilenameFileOutputPathFormatter.
         /// </summary>
         /// <param name="outputDirectory">The output directory.</param>
-        public OriginalFilenameFileOutputPathFormatter(string outputDirectory)
+        public KeepFilenameFormatter(string outputDirectory)
         {
             if (outputDirectory.Equals(""))
             {
@@ -44,9 +44,9 @@ namespace Image
         ///     Creates an instance of OriginalFilenameFileOutputPathFormatter.
         /// </summary>
         /// <param name="outputDirectory">The output directory.</param>
-        public static OriginalFilenameFileOutputPathFormatter Create(string outputDirectory)
+        public static KeepFilenameFormatter Create(string outputDirectory)
         {
-            return new OriginalFilenameFileOutputPathFormatter(outputDirectory);
+            return new KeepFilenameFormatter(outputDirectory);
         }
     }
 }

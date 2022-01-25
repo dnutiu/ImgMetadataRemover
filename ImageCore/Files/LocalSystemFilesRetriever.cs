@@ -3,7 +3,7 @@ using System.IO;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 
-namespace Image
+namespace Image.Files
 {
     /// <summary>
     ///     LocalSystemFilesRetriever reads files from the provided directory on the local system.

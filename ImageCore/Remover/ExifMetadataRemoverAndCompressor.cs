@@ -1,11 +1,12 @@
-﻿using ImageMagick;
+﻿using Image.Compressor;
+using ImageMagick;
 
-namespace Image
+namespace Image.Remover
 {
     /// <summary>
     ///     MetadataRemover removes metadata from an image. The exif profile.
     /// </summary>
-    public class MetadataRemover : IMetadataRemover
+    public class ExifMetadataRemoverAndCompressor : IMetadataRemover
     {
         private readonly ICompressor _compressor;
         private readonly IMagickImage _magickImage;
@@ -15,7 +16,7 @@ namespace Image
         /// </summary>
         /// <param name="magickImage">MagicImage instance.</param>
         /// <param name="compressor">Compressor instance.</param>
-        public MetadataRemover(IMagickImage magickImage, ICompressor compressor)
+        public ExifMetadataRemoverAndCompressor(IMagickImage magickImage, ICompressor compressor)
         {
             _magickImage = magickImage;
             _compressor = compressor;

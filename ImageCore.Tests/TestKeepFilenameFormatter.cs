@@ -1,5 +1,6 @@
 ﻿using System;
 using Image;
+using Image.Output;
 using Xunit;
 
 namespace ImageCore.Tests
@@ -14,14 +15,14 @@ namespace ImageCore.Tests
         [InlineData("dir", "asd", @"dir\asd.jpg")]
         public void TestGetOutputPath(string directory, string file, string expectedPath)
         {
-            var outputPathFormatter = OriginalFilenameFileOutputPathFormatter.Create(directory);
+            var outputPathFormatter = KeepFilenameFormatter.Create(directory);
             Assert.Equal(expectedPath, outputPathFormatter.GetOutputPath(file));
         }
 
         [Fact]
         public void TestGetOutputPathNull()
         {
-            var outputPathFormatter = OriginalFilenameFileOutputPathFormatter.Create("directory");
+            var outputPathFormatter = KeepFilenameFormatter.Create("directory");
             Assert.Throws<ArgumentException>(() => outputPathFormatter.GetOutputPath(""));
         }
     }
