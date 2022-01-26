@@ -8,7 +8,7 @@ using ImageMagick;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 
-namespace Image
+namespace ConsoleInterface
 {
     /// <summary>
     ///     TaskExecutor is a helper class for executing tasks in parallel.
