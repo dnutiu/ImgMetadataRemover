@@ -34,6 +34,7 @@ namespace Image.Output
         /// <returns>An absolute path of the form output_directory/initialFileName.jpg</returns>
         public string GetOutputPath(string initialFilePath)
         {
+            Logger.LogDebug($"KeepFilenameFormatter - {_outputDirectory} - {initialFilePath}");
             Guard.NotNullOrEmpty(initialFilePath, nameof(initialFilePath));
             var fileName = Path.GetFileName(initialFilePath)?.Split(".")[0];
             var path = Path.Join(_outputDirectory, $"{fileName}.jpg");
