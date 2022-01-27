@@ -1,6 +1,6 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
 using CommandLine;
-using Image;
 using Image.Files;
 using Image.Output;
 using Microsoft.Extensions.Logging;
@@ -20,7 +20,8 @@ namespace ConsoleInterface
         ///     The console interface for the project and the main entrypoint.
         /// </summary>
         /// <param name="args">Command line provided args.</param>
-        private static void Main(string[] args)
+        // ReSharper disable once UnusedMember.Local
+        private static void Main(IEnumerable<string> args)
         {
             Parser.Default.ParseArguments<Options>(args).WithParsed(RunOptions);
         }

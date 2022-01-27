@@ -91,7 +91,7 @@ namespace ConsoleInterface
             result.Wait();
 
             var successTasks = tasks.Count(t => t.IsCompletedSuccessfully && t.Result);
-            var errorTasks = tasks.Count() - successTasks;
+            var errorTasks = tasks.Count - successTasks;
             Logger.LogInformation($"All tasks completed. Success: {successTasks}, Errors: {errorTasks}");
         }
     }

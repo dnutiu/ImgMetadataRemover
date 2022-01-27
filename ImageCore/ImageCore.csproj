@@ -3,6 +3,7 @@
     <PropertyGroup>
         <RootNamespace>Image</RootNamespace>
         <TargetFrameworks>net5.0;netstandard2.1</TargetFrameworks>
+        <LangVersion>8.0</LangVersion>
     </PropertyGroup>
 
     <ItemGroup>

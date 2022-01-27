@@ -36,7 +36,7 @@ namespace Image.Output
         {
             Logger.LogDebug($"KeepFilenameFormatter - {_outputDirectory} - {initialFilePath}");
             Guard.Against.NullOrEmpty(initialFilePath, nameof(initialFilePath));
-            var fileName = Path.GetFileName(initialFilePath)?.Split('.')[0];
+            var fileName = Path.GetFileName(initialFilePath).Split('.')[0];
             var path = Path.Combine(_outputDirectory, $"{fileName}.jpg");
 
             return path;

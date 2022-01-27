@@ -1,6 +1,5 @@
 ﻿using System;
 using System.IO;
-using Image;
 using Image.Compressor;
 using Xunit;
 
