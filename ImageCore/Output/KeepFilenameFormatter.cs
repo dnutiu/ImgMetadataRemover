@@ -1,5 +1,5 @@
 ﻿using System.IO;
-using GuardNet;
+using Ardalis.GuardClauses;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 
@@ -35,9 +35,10 @@ namespace Image.Output
         public string GetOutputPath(string initialFilePath)
         {
             Logger.LogDebug($"KeepFilenameFormatter - {_outputDirectory} - {initialFilePath}");
-            Guard.NotNullOrEmpty(initialFilePath, nameof(initialFilePath));
-            var fileName = Path.GetFileName(initialFilePath)?.Split(".")[0];
-            var path = Path.Join(_outputDirectory, $"{fileName}.jpg");
+            Guard.Against.NullOrEmpty(initialFilePath, nameof(initialFilePath));
+            var fileName = Path.GetFileName(initialFilePath)?.Split('.')[0];
+            var path = Path.Combine(_outputDirectory, $"{fileName}.jpg");
+
             return path;
         }
 

@@ -1,5 +1,4 @@
 ﻿using System;
-using Image;
 using Image.Output;
 using Xunit;
 

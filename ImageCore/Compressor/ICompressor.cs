@@ -9,6 +9,6 @@
         ///     The method compresses an image in place.
         /// </summary>
         /// <param name="fileName">The file name of the image to be compressed.</param>
-        public void Compress(string fileName);
+        void Compress(string fileName);
     }
 }

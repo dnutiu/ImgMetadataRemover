@@ -7,7 +7,7 @@ namespace Image.Compressor
     /// </summary>
     public class LosslessCompressor : ICompressor
     {
-        public static readonly LosslessCompressor Instance = new();
+        public static readonly LosslessCompressor Instance;
         private readonly ImageOptimizer _imageOptimizer;
 
         public LosslessCompressor()
