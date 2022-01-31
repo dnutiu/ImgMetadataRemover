@@ -2,7 +2,7 @@
 
     <PropertyGroup>
         <RootNamespace>Image</RootNamespace>
-        <TargetFrameworks>net5.0;netstandard2.1</TargetFrameworks>
+        <TargetFrameworks>net5.0;netstandard2.1;netstandard2.0</TargetFrameworks>
         <LangVersion>8.0</LangVersion>
     </PropertyGroup>
 
