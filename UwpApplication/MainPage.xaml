@@ -9,6 +9,13 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-
+        <StackPanel x:Name="MainStackPanel">
+            <ListView x:Name="FilesListView">
+                <TextBlock>test 1</TextBlock>
+                <TextBlock>test 2</TextBlock>
+                <TextBlock>test 3</TextBlock>
+                <TextBlock>test 4</TextBlock>
+            </ListView>
+        </StackPanel>
     </Grid>
 </Page>
