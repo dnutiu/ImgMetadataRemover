@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleInterface", "Console
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ImageCore.Tests", "ImageCore.Tests\ImageCore.Tests.csproj", "{8EB81515-E62C-4408-84E0-6C27E0293902}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesktopApplication", "DesktopApplication\DesktopApplication.csproj", "{47866D0C-006D-4545-99F2-487614147EA0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -83,6 +85,26 @@ Global
 		{8EB81515-E62C-4408-84E0-6C27E0293902}.Release|x64.Build.0 = Release|Any CPU
 		{8EB81515-E62C-4408-84E0-6C27E0293902}.Release|x86.ActiveCfg = Release|Any CPU
 		{8EB81515-E62C-4408-84E0-6C27E0293902}.Release|x86.Build.0 = Release|Any CPU
+		{47866D0C-006D-4545-99F2-487614147EA0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{47866D0C-006D-4545-99F2-487614147EA0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{47866D0C-006D-4545-99F2-487614147EA0}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{47866D0C-006D-4545-99F2-487614147EA0}.Debug|ARM.Build.0 = Debug|Any CPU
+		{47866D0C-006D-4545-99F2-487614147EA0}.Debug|ARM64.ActiveCfg = Debug|Any CPU
+		{47866D0C-006D-4545-99F2-487614147EA0}.Debug|ARM64.Build.0 = Debug|Any CPU
+		{47866D0C-006D-4545-99F2-487614147EA0}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{47866D0C-006D-4545-99F2-487614147EA0}.Debug|x64.Build.0 = Debug|Any CPU
+		{47866D0C-006D-4545-99F2-487614147EA0}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{47866D0C-006D-4545-99F2-487614147EA0}.Debug|x86.Build.0 = Debug|Any CPU
+		{47866D0C-006D-4545-99F2-487614147EA0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{47866D0C-006D-4545-99F2-487614147EA0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{47866D0C-006D-4545-99F2-487614147EA0}.Release|ARM.ActiveCfg = Release|Any CPU
+		{47866D0C-006D-4545-99F2-487614147EA0}.Release|ARM.Build.0 = Release|Any CPU
+		{47866D0C-006D-4545-99F2-487614147EA0}.Release|ARM64.ActiveCfg = Release|Any CPU
+		{47866D0C-006D-4545-99F2-487614147EA0}.Release|ARM64.Build.0 = Release|Any CPU
+		{47866D0C-006D-4545-99F2-487614147EA0}.Release|x64.ActiveCfg = Release|Any CPU
+		{47866D0C-006D-4545-99F2-487614147EA0}.Release|x64.Build.0 = Release|Any CPU
+		{47866D0C-006D-4545-99F2-487614147EA0}.Release|x86.ActiveCfg = Release|Any CPU
+		{47866D0C-006D-4545-99F2-487614147EA0}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
