@@ -1,4 +1,4 @@
-﻿namespace Image.Remover
+﻿namespace Image.Core
 {
     /// <summary>
     ///     Interface for implementing metadata removers.

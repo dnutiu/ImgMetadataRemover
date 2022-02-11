@@ -1,4 +1,4 @@
-﻿namespace Image.Output
+﻿namespace Image.Files
 {
     /// <summary>
     ///     IOutputFormatter is an interface for generating the output path and destination file name.

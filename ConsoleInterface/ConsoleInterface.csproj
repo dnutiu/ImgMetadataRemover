@@ -6,6 +6,7 @@
         <SelfContained>true</SelfContained>
         <RuntimeIdentifier>win-x64</RuntimeIdentifier>
         <PublishReadyToRun>true</PublishReadyToRun>
+        <OutputType>exe</OutputType>
         <TargetFrameworks>net5.0;netstandard2.1</TargetFrameworks>
         <LangVersion>7.3</LangVersion>
     </PropertyGroup>

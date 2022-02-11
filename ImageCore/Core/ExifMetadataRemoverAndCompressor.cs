@@ -1,7 +1,6 @@
-﻿using Image.Compressor;
-using ImageMagick;
+﻿using ImageMagick;
 
-namespace Image.Remover
+namespace Image.Core
 {
     /// <summary>
     ///     MetadataRemover removes metadata from an image. The exif profile.

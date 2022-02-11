@@ -1,5 +1,5 @@
 ﻿using System;
-using Image.Output;
+using Image.Files;
 
 namespace ConsoleInterface
 {

@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Image.Compressor;
-using Image.Remover;
+using Image.Core;
 using ImageMagick;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;

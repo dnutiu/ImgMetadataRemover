@@ -3,7 +3,7 @@ using Ardalis.GuardClauses;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 
-namespace Image.Output
+namespace Image.Files
 {
     /// <summary>
     ///     KeepFilenameFormatter keeps the original file name of the image when formatting the new output

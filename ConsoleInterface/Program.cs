@@ -1,8 +1,5 @@
-﻿using System.Collections.Generic;
-using System.IO;
-using CommandLine;
+﻿using CommandLine;
 using Image.Files;
-using Image.Output;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 
@@ -12,16 +9,17 @@ using Microsoft.Extensions.Logging.Abstractions;
 
 namespace ConsoleInterface
 {
-    internal static class Program
+    public static class Program
     {
-        private static readonly ILogger Logger = NullLogger.Instance;
+        private static ILoggerFactory _loggerFactory;
+        public static readonly ILogger Logger = NullLogger.Instance;
         
         /// <summary>
         ///     The console interface for the project and the main entrypoint.
         /// </summary>
         /// <param name="args">Command line provided args.</param>
         // ReSharper disable once UnusedMember.Local
-        private static void Main(IEnumerable<string> args)
+        public static void Main(string[] args)
         {
             Parser.Default.ParseArguments<Options>(args).WithParsed(RunOptions);
         }
@@ -31,11 +29,11 @@ namespace ConsoleInterface
         /// </summary>
         private static void RunOptions(Options options)
         {
-            var loggerFactory = LoggerFactory.Create(b => b.AddConsole());
-            TaskExecutor.Logger = loggerFactory.CreateLogger(nameof(TaskExecutor));
-            LocalSystemFilesRetriever.Logger = loggerFactory.CreateLogger(nameof(LocalSystemFilesRetriever));
+            _loggerFactory = LoggerFactory.Create(b => b.AddConsole());
+            TaskExecutor.Logger = _loggerFactory.CreateLogger(nameof(TaskExecutor));
+            LocalSystemFilesRetriever.Logger = _loggerFactory.CreateLogger(nameof(LocalSystemFilesRetriever));
             KeepFilenameFormatter.Logger =
-                loggerFactory.CreateLogger(nameof(KeepFilenameFormatter));
+                _loggerFactory.CreateLogger(nameof(KeepFilenameFormatter));
 
             CreateDestinationDirectory(options.DestinationDirectory);
             var outputFormatter = KeepFilenameFormatter.Create(options.DestinationDirectory);
@@ -49,16 +47,18 @@ namespace ConsoleInterface
 
             executor.ParallelCleanImages(filesRetriever.GetFilenamesFromPath(options.SourceDirectory));
         }
-
+        
         /// <summary>
         /// Creates the directory if it doesn't exist.
         /// </summary>
         /// <param name="destinationDirectory">The destination directory.</param>
         private static void CreateDestinationDirectory(string destinationDirectory)
         {
-            if (Directory.Exists(destinationDirectory)) return;
-            Logger.LogWarning("Output directory does not exist. Creating.");
-            Directory.CreateDirectory(destinationDirectory);
+            if (FileSystemHelpers.Logger == null)
+            {
+                FileSystemHelpers.Logger = _loggerFactory.CreateLogger(nameof(FileSystemHelpers));
+            }
+            FileSystemHelpers.CreateDestinationDirectory(destinationDirectory);
         }
 
         /// <summary>

@@ -1,6 +1,6 @@
 ﻿using System;
 using System.IO;
-using Image.Compressor;
+using Image.Core;
 using Xunit;
 
 namespace ImageCore.Tests

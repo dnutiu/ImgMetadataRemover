@@ -1,5 +1,4 @@
-﻿using Image.Compressor;
-using Image.Remover;
+﻿using Image.Core;
 using ImageMagick;
 using Moq;
 using Xunit;
