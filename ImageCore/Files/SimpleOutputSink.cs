@@ -6,19 +6,20 @@ using Microsoft.Extensions.Logging.Abstractions;
 namespace Image.Files
 {
     /// <summary>
-    ///     KeepFilenameFormatter keeps the original file name of the image when formatting the new output
+    ///     SimpleOutputFormatter keeps the original file name of the image when formatting it.
+    ///     SimpleOutputFormatter also saves all the file names into a new directory.
     ///     path.
     /// </summary>
-    public class KeepFilenameFormatter : IFileOutputFormatter
+    public class SimpleOutputSink : IOutputSink
     {
         public static ILogger Logger = NullLogger.Instance;
         private readonly string _outputDirectory;
 
         /// <summary>
-        ///     Creates an instance of OriginalFilenameFileOutputPathFormatter.
+        ///     Creates an instance of SimpleOutputFormatter.
         /// </summary>
         /// <param name="outputDirectory">The output directory.</param>
-        public KeepFilenameFormatter(string outputDirectory)
+        public SimpleOutputSink(string outputDirectory)
         {
             if (outputDirectory.Equals(""))
             {
@@ -46,9 +47,9 @@ namespace Image.Files
         ///     Creates an instance of OriginalFilenameFileOutputPathFormatter.
         /// </summary>
         /// <param name="outputDirectory">The output directory.</param>
-        public static KeepFilenameFormatter Create(string outputDirectory)
+        public static SimpleOutputSink Create(string outputDirectory)
         {
-            return new KeepFilenameFormatter(outputDirectory);
+            return new SimpleOutputSink(outputDirectory);
         }
     }
 }

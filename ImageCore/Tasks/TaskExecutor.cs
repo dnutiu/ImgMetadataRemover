@@ -58,8 +58,8 @@ namespace Image.Tasks
                 if (_options.EnableCompression) compressor = LosslessCompressor.Instance;
 
                 Logger.LogDebug(
-                    $"Cleaning {filePath}, compression {_options.EnableCompression}, outputFormatter {nameof(_options.FileOutputFormatter)}.");
-                IMetadataRemover metadataRemover = new ExifMetadataRemoverAndCompressor(imageMagick, compressor);
+                    $"Cleaning {filePath}, compression {_options.EnableCompression}, outputFormatter {nameof(_options.OutputSink)}.");
+                IMetadataRemover metadataRemover = new ExifRemoverAndCompressor(imageMagick, compressor);
                 metadataRemover.CleanImage(newFilePath);
                 return true;
             }
@@ -88,7 +88,7 @@ namespace Image.Tasks
             foreach (var fileName in filenamesArray)
             {
                 var task = new Task<bool>(() =>
-                    CleanImage(fileName, _options.FileOutputFormatter.GetOutputPath(fileName)));
+                    CleanImage(fileName, _options.OutputSink.GetOutputPath(fileName)));
                 tasks.Add(task);
                 task.Start();
             }

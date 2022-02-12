@@ -3,9 +3,9 @@
 namespace Image.Files
 {
     /// <summary>
-    ///     An to interface enabling implementation of filename retrievers.
+    ///     An to interface enabling implementation of file browsers.
     /// </summary>
-    public interface IFilesBrowser
+    public interface IFileBrowser
     {
         /// <summary>
         ///     Returns all filenames from given path.

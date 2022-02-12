@@ -8,16 +8,16 @@ namespace Image.Tasks
     /// </summary>
     public class TaskExecutorOptions
     {
-        private IFileOutputFormatter _fileOutputFormatter;
+        private IOutputSink _outputSink;
 
         /// <summary>
         ///     The file output path formatter. It cannot be null.
-        ///     A implementation of <see cref="IFileOutputFormatter" />.
+        ///     A implementation of <see cref="IOutputSink" />.
         /// </summary>
-        public IFileOutputFormatter FileOutputFormatter
+        public IOutputSink OutputSink
         {
-            get => _fileOutputFormatter;
-            set => _fileOutputFormatter = value ?? throw new ArgumentException("Output formatter cannot be null!");
+            get => _outputSink;
+            set => _outputSink = value ?? throw new ArgumentException("Output formatter cannot be null!");
         }
 
         /// <summary>

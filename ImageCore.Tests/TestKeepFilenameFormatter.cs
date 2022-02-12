@@ -4,7 +4,7 @@ using Xunit;
 
 namespace ImageCore.Tests
 {
-    public class TestOriginalFilenameFileOutputPathFormatter
+    public class TestSimpleOutputSink
     {
 
         [Theory]
@@ -14,14 +14,14 @@ namespace ImageCore.Tests
         [InlineData("dir", "asd", @"dir\asd.jpg")]
         public void TestGetOutputPath(string directory, string file, string expectedPath)
         {
-            var outputPathFormatter = KeepFilenameFormatter.Create(directory);
+            var outputPathFormatter = SimpleOutputSink.Create(directory);
             Assert.Equal(expectedPath, outputPathFormatter.GetOutputPath(file));
         }
 
         [Fact]
         public void TestGetOutputPathNull()
         {
-            var outputPathFormatter = KeepFilenameFormatter.Create("directory");
+            var outputPathFormatter = SimpleOutputSink.Create("directory");
             Assert.Throws<ArgumentException>(() => outputPathFormatter.GetOutputPath(""));
         }
     }

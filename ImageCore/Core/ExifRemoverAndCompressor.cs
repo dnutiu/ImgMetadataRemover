@@ -3,19 +3,19 @@
 namespace Image.Core
 {
     /// <summary>
-    ///     MetadataRemover removes metadata from an image. The exif profile.
+    ///     ExifRemoverAndCompressor removes exif metadata from an image.
     /// </summary>
-    public class ExifMetadataRemoverAndCompressor : IMetadataRemover
+    public class ExifRemoverAndCompressor : IMetadataRemover
     {
         private readonly ICompressor _compressor;
         private readonly IMagickImage _magickImage;
 
         /// <summary>
-        ///     Constructs an instance of MetadataRemover.
+        ///     Constructs an instance of ExifRemoverAndCompressor.
         /// </summary>
         /// <param name="magickImage">MagicImage instance.</param>
         /// <param name="compressor">Compressor instance.</param>
-        public ExifMetadataRemoverAndCompressor(IMagickImage magickImage, ICompressor compressor)
+        public ExifRemoverAndCompressor(IMagickImage magickImage, ICompressor compressor)
         {
             _magickImage = magickImage;
             _compressor = compressor;

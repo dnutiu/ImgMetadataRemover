@@ -1,9 +1,9 @@
 ﻿namespace Image.Files
 {
     /// <summary>
-    ///     IOutputFormatter is an interface for generating the output path and destination file name.
+    ///     IOutputSink is an interface for generating saving the generated files..
     /// </summary>
-    public interface IFileOutputFormatter
+    public interface IOutputSink
     {
         /// <summary>
         ///     Generates an absolute output path given the initial absolute file path.

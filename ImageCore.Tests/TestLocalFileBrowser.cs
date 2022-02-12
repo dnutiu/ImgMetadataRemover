@@ -7,11 +7,11 @@ using Xunit;
 
 namespace ImageCore.Tests
 {
-    public class TestLocalSystemFilesRetriever
+    public class TestLocalFileBrowser
     {
         private readonly string _testsProjectDirectory;
 
-        public TestLocalSystemFilesRetriever()
+        public TestLocalFileBrowser()
         {
             _testsProjectDirectory = Environment.GetEnvironmentVariable("IMAGE_CORE_TESTS");
         }
@@ -19,14 +19,14 @@ namespace ImageCore.Tests
         [Fact]
         public void TestGetFilenamesFromPath_DirectoryNotFound()
         {
-            var filesRetriever = LocalSystemFilesRetriever.Create();
+            var filesRetriever = LocalFileBrowser.Create();
             Assert.Throws<DirectoryNotFoundException>(() => filesRetriever.GetFilenamesFromPath("a"));
         }
 
         [Fact]
         public void TestGetFilenamesFromPath()
         {
-            var filesRetriever = LocalSystemFilesRetriever.Create();
+            var filesRetriever = LocalFileBrowser.Create();
             var filePaths = filesRetriever.GetFilenamesFromPath(Path.Join(_testsProjectDirectory, "test_pictures"));
             Assert.NotNull(filePaths);
             var filePathsList = filePaths.ToList();

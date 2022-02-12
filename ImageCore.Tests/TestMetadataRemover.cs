@@ -13,7 +13,7 @@ namespace ImageCore.Tests
             // Setup
             var magicImageMock = new Mock<IMagickImage>();
             var compressorMock = new Mock<ICompressor>();
-            var metadataRemover = new ExifMetadataRemoverAndCompressor(magicImageMock.Object, compressorMock.Object);
+            var metadataRemover = new ExifRemoverAndCompressor(magicImageMock.Object, compressorMock.Object);
             
             // Test
             metadataRemover.CleanImage("path");
