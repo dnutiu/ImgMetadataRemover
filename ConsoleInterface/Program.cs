@@ -31,7 +31,6 @@ namespace ConsoleInterface
         private static void RunOptions(ProgramOptions options)
         {
             SetupLogging(options.LogLevel);
-            CreateDestinationDirectory(options.DestinationDirectory);
             var outputFormatter = SimpleOutputSink.Create(options.DestinationDirectory);
             var executor = TaskExecutor.Create(new TaskExecutorOptions
             {
@@ -42,15 +41,6 @@ namespace ConsoleInterface
 
 
             executor.ParallelCleanImages(filesRetriever.GetFilenamesFromPath(options.SourceDirectory));
-        }
-
-        /// <summary>
-        /// Creates the directory if it doesn't exist.
-        /// </summary>
-        /// <param name="destinationDirectory">The destination directory.</param>
-        private static void CreateDestinationDirectory(string destinationDirectory)
-        {
-            FileSystemHelpers.CreateDestinationDirectory(destinationDirectory);
         }
 
         public static void SetupLogging(string logLevel)

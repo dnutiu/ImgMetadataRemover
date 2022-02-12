@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using Ardalis.GuardClauses;
+using Image.Core;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 
@@ -25,6 +26,10 @@ namespace Image.Files
             {
                 outputDirectory = ".";
             }
+            else
+            {
+                FileSystemHelpers.CreateDestinationDirectory(outputDirectory);
+            }
             _outputDirectory = outputDirectory;
         }
 
@@ -39,8 +44,21 @@ namespace Image.Files
             Guard.Against.NullOrEmpty(initialFilePath, nameof(initialFilePath));
             var fileName = Path.GetFileName(initialFilePath).Split('.')[0];
             var path = Path.Combine(_outputDirectory, $"{fileName}.jpg");
-
             return path;
+        }
+
+        public bool Save(IMetadataRemover metadataRemover)
+        {
+            var newFilePath = GetOutputPath(metadataRemover.GetImagePath());
+            var fileExists = FileSystemHelpers.CheckIfFileExists(newFilePath);
+            if (fileExists)
+            {
+                Logger.LogWarning($"File {newFilePath} exists, skipping");
+                return false;
+            }
+            // Save the image under the same name in the new directory.
+            metadataRemover.CleanImage(newFilePath);
+            return true;
         }
 
         /// <summary>

@@ -32,7 +32,7 @@ namespace ImageCore.Tests
             var filePathsList = filePaths.ToList();
             var expectedFileNames = new List<string>
             {
-                "IMG_0138.HEIC", "IMG_0140.HEIC",
+                "IMG_0138.HEIC", "IMG_0138.jpg", "IMG_0140.HEIC",
             };
 
             Assert.NotEmpty(filePathsList);

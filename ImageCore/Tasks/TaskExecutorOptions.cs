@@ -17,7 +17,7 @@ namespace Image.Tasks
         public IOutputSink OutputSink
         {
             get => _outputSink;
-            set => _outputSink = value ?? throw new ArgumentException("Output formatter cannot be null!");
+            set => _outputSink = value ?? throw new ArgumentException("OutputSink cannot be null!");
         }
 
         /// <summary>

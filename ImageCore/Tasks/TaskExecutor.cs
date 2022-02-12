@@ -41,27 +41,19 @@ namespace Image.Tasks
         ///     Cleans an image. Errors are silenced by default.
         /// </summary>
         /// <param name="filePath">The file path of the image to be cleaned.</param>
-        /// <param name="newFilePath">The new file path of the cleaned image.</param>
+        /// <param name="outputSink">The output sink for the image..</param>
         /// <returns>True of the image was cleaned, false otherwise.</returns>
-        public bool CleanImage(string filePath, string newFilePath)
+        public bool CleanImage(string filePath, IOutputSink outputSink)
         {
             try
             {
-                var fileExists = FileSystemHelpers.CheckIfFileExists(newFilePath);
-                if (fileExists)
-                {
-                    Logger.LogWarning($"File {newFilePath} exists, skipping");
-                    return false;
-                }
+                Logger.LogDebug($"Cleaning {filePath}, compression {_options.EnableCompression}, outputFormatter {nameof(_options.OutputSink)}.");
+                
                 ICompressor compressor = NullCompressor.Instance;
-                var imageMagick = new MagickImage(filePath);
                 if (_options.EnableCompression) compressor = LosslessCompressor.Instance;
-
-                Logger.LogDebug(
-                    $"Cleaning {filePath}, compression {_options.EnableCompression}, outputFormatter {nameof(_options.OutputSink)}.");
+                var imageMagick = new MagickImage(filePath);
                 IMetadataRemover metadataRemover = new ExifRemoverAndCompressor(imageMagick, compressor);
-                metadataRemover.CleanImage(newFilePath);
-                return true;
+                return outputSink.Save(metadataRemover);
             }
             catch (Exception e)
             {
@@ -87,8 +79,7 @@ namespace Image.Tasks
             var tasks = new List<Task<bool>>();
             foreach (var fileName in filenamesArray)
             {
-                var task = new Task<bool>(() =>
-                    CleanImage(fileName, _options.OutputSink.GetOutputPath(fileName)));
+                var task = new Task<bool>(() => CleanImage(fileName, _options.OutputSink));
                 tasks.Add(task);
                 task.Start();
             }

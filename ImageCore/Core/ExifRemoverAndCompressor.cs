@@ -31,5 +31,11 @@ namespace Image.Core
             _magickImage.Write(newFilePath);
             _compressor.Compress(newFilePath);
         }
+
+        /// <inheritdoc />
+        public string GetImagePath()
+        {
+            return _magickImage.FileName;
+        }
     }
 }
