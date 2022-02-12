@@ -13,8 +13,8 @@ namespace ConsoleInterface
     public static class Program
     {
         private static ILoggerFactory _loggerFactory;
-        public static readonly ILogger Logger = NullLogger.Instance;
-        
+        public static ILogger Logger = NullLogger.Instance;
+
         /// <summary>
         ///     The console interface for the project and the main entrypoint.
         /// </summary>
@@ -22,69 +22,105 @@ namespace ConsoleInterface
         // ReSharper disable once UnusedMember.Local
         public static void Main(string[] args)
         {
-            Parser.Default.ParseArguments<Options>(args).WithParsed(RunOptions);
+            Parser.Default.ParseArguments<ProgramOptions>(args).WithParsed(RunOptions);
         }
 
         /// <summary>
         ///     RunOptions will be called after the command-line arguments were successfully parsed.
         /// </summary>
-        private static void RunOptions(Options options)
+        private static void RunOptions(ProgramOptions options)
         {
-            _loggerFactory = LoggerFactory.Create(b => b.AddConsole());
-            TaskExecutor.Logger = _loggerFactory.CreateLogger(nameof(TaskExecutor));
-            LocalSystemFilesRetriever.Logger = _loggerFactory.CreateLogger(nameof(LocalSystemFilesRetriever));
-            KeepFilenameFormatter.Logger =
-                _loggerFactory.CreateLogger(nameof(KeepFilenameFormatter));
-
+            SetupLogging(options.LogLevel);
             CreateDestinationDirectory(options.DestinationDirectory);
-            var outputFormatter = KeepFilenameFormatter.Create(options.DestinationDirectory);
+            var outputFormatter = SimpleOutputSink.Create(options.DestinationDirectory);
             var executor = TaskExecutor.Create(new TaskExecutorOptions
             {
                 EnableCompression = options.CompressFiles is true,
-                FileOutputFormatter = outputFormatter
+                OutputSink = outputFormatter
             });
-            var filesRetriever = LocalSystemFilesRetriever.Create();
+            var filesRetriever = LocalFileBrowser.Create();
 
 
             executor.ParallelCleanImages(filesRetriever.GetFilenamesFromPath(options.SourceDirectory));
         }
-        
+
         /// <summary>
         /// Creates the directory if it doesn't exist.
         /// </summary>
         /// <param name="destinationDirectory">The destination directory.</param>
         private static void CreateDestinationDirectory(string destinationDirectory)
         {
-            if (FileSystemHelpers.Logger == null)
-            {
-                FileSystemHelpers.Logger = _loggerFactory.CreateLogger(nameof(FileSystemHelpers));
-            }
             FileSystemHelpers.CreateDestinationDirectory(destinationDirectory);
         }
 
-        /// <summary>
-        ///     Options is a class defining command line options supported by this program.
-        /// </summary>
-        public class Options
+        public static void SetupLogging(string logLevel)
         {
-            /// <summary>
-            ///     CompressFiles indicates whether files should be compressed after being cleaned.
-            /// </summary>
-            [Option('c', "compress", Required = false, HelpText = "Compress images after cleaning.", Default = true)]
-            public bool? CompressFiles { get; set; }
+            _loggerFactory = LoggerFactory.Create(b =>
+            {
+                b.AddConsole();
+                var logLevelToBeSet = LogLevel.Information;
+                switch (logLevel.ToLower())
+                {
+                    case "trace":
+                    case "t":
+                    {
+                        logLevelToBeSet = LogLevel.Trace;
+                        break;
+                    }
+                    case "debug":
+                    case "d":
+                    {
+                        logLevelToBeSet = LogLevel.Debug;
+                        break;
+                    }
+                    case "information":
+                    case "i":
+                    case "info":
+                    {
+                        logLevelToBeSet = LogLevel.Information;
+                        break;
+                    }
+                    case "warning":
+                    case "warn":
+                    case "w":
+                    {
+                        logLevelToBeSet = LogLevel.Warning;
+                        break;
+                    }
+                    case "error":
+                    case "err":
+                    case "e":
+                    {
+                        logLevelToBeSet = LogLevel.Error;
+                        break;
+                    }
+                    case "critical":
+                    case "crt":
+                    case "c":
+                    {
+                        logLevelToBeSet = LogLevel.Critical;
+                        break;
+                    }
+                    case "none":
+                    case "n":
+                    {
+                        logLevelToBeSet = LogLevel.None;
+                        break;
+                    }
+                }
 
-            /// <summary>
-            ///     DestinationDirectory represents the destination directory for the cleaned images.
-            /// </summary>
-            [Option('d', "dest", Required = false, HelpText = "The destination directory for the cleaned images.",
-                Default = "./cleaned")]
-            public string DestinationDirectory { get; set; }
-
-            /// <summary>
-            ///     SourceDirectory represents the source directory of images.
-            /// </summary>
-            [Value(0, MetaName = "source", HelpText = "The source directory of images.", Default = ".")]
-            public string SourceDirectory { get; set; }
+                b.SetMinimumLevel(logLevelToBeSet);
+            });
+            Logger = _loggerFactory.CreateLogger(nameof(Program));
+            // Tasks
+            TaskExecutor.Logger = _loggerFactory.CreateLogger(nameof(TaskExecutor));
+            // File Retriever
+            LocalFileBrowser.Logger = _loggerFactory.CreateLogger(nameof(LocalFileBrowser));
+            // FileName formatter
+            SimpleOutputSink.Logger =
+                _loggerFactory.CreateLogger(nameof(SimpleOutputSink));
+            FileSystemHelpers.Logger = _loggerFactory.CreateLogger(nameof(FileSystemHelpers));
+            Logger.LogTrace("SetupLogging - exit");
         }
     }
 }
