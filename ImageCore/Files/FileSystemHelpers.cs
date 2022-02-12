@@ -1,5 +1,4 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 
@@ -12,20 +11,26 @@ namespace Image.Files
         /// <summary>
         /// Creates the directory if it doesn't exist.
         /// </summary>
-        /// <param name="destinationDirectory">The destination directory.</param>
-        public static void CreateDestinationDirectory(string destinationDirectory)
+        /// <param name="directoryPath">The destination directory's path.</param>
+        public static void CreateDestinationDirectory(string directoryPath)
         {
-#if NETSTANDARD2_1
-    Console.WriteLine("");
-#elif  NETSTANDARD2_0
-    Console.WriteLine("");
-#elif NET5_0
-            if (Directory.Exists(destinationDirectory)) return;
-            //Logger.LogWarning("Output directory does not exist. Creating.");
-            Directory.CreateDirectory(destinationDirectory);
-#endif
+            if (Directory.Exists(directoryPath)) return;
+            Logger.LogWarning("Output directory does not exist. Creating.");
+            Directory.CreateDirectory(directoryPath);
+        }
 
-
+        /// <summary>
+        /// CheckIfFileExists checks if file exists.
+        /// </summary>
+        /// <param name="filePath">The path of the file to be checked.</param>
+        /// <returns>Returns true if file exists, False otherwise.</returns>
+        public static bool CheckIfFileExists(string filePath)
+        {
+            var result = File.Exists(filePath);
+            Logger.LogDebug(result
+                ? $"CheckIfFileExists - {filePath} exists."
+                : $"CheckIfFileExists - {filePath} doesn't exists.");
+            return result;
         }
     }
 }

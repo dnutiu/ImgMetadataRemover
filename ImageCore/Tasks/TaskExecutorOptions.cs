@@ -1,7 +1,7 @@
 ﻿using System;
 using Image.Files;
 
-namespace ConsoleInterface
+namespace Image.Tasks
 {
     /// <summary>
     ///     TaskExecutorOptions is a class containing various parameters for the <see cref="TaskExecutor" /> class.

@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Image.Core;
+using Image.Files;
 using ImageMagick;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 
-namespace ConsoleInterface
+namespace Image.Tasks
 {
     /// <summary>
     ///     TaskExecutor is a helper class for executing tasks in parallel.
@@ -39,21 +40,27 @@ namespace ConsoleInterface
         /// <summary>
         ///     Cleans an image. Errors are silenced by default.
         /// </summary>
-        /// <param name="fileName">The file name of the image to be cleaned.</param>
-        /// <param name="newFilename">The new file name of the cleaned image.</param>
+        /// <param name="filePath">The file path of the image to be cleaned.</param>
+        /// <param name="newFilePath">The new file path of the cleaned image.</param>
         /// <returns>True of the image was cleaned, false otherwise.</returns>
-        public bool CleanImage(string fileName, string newFilename)
+        public bool CleanImage(string filePath, string newFilePath)
         {
             try
             {
+                var fileExists = FileSystemHelpers.CheckIfFileExists(newFilePath);
+                if (fileExists)
+                {
+                    Logger.LogWarning($"File {newFilePath} exists, skipping");
+                    return false;
+                }
                 ICompressor compressor = NullCompressor.Instance;
-                var imageMagick = new MagickImage(fileName);
+                var imageMagick = new MagickImage(filePath);
                 if (_options.EnableCompression) compressor = LosslessCompressor.Instance;
 
                 Logger.LogDebug(
-                    $"Cleaning {fileName}, compression {_options.EnableCompression}, outputFormatter {nameof(_options.FileOutputFormatter)}.");
+                    $"Cleaning {filePath}, compression {_options.EnableCompression}, outputFormatter {nameof(_options.FileOutputFormatter)}.");
                 IMetadataRemover metadataRemover = new ExifMetadataRemoverAndCompressor(imageMagick, compressor);
-                metadataRemover.CleanImage(newFilename);
+                metadataRemover.CleanImage(newFilePath);
                 return true;
             }
             catch (Exception e)
@@ -89,9 +96,9 @@ namespace ConsoleInterface
             var result = Task.WhenAll(tasks);
             result.Wait();
 
-            var successTasks = tasks.Count(t => t.IsCompletedSuccessfully && t.Result);
+            var successTasks = tasks.Count(t => t.IsCompleted && t.Result);
             var errorTasks = tasks.Count - successTasks;
-            Logger.LogInformation($"All tasks completed. Success: {successTasks}, Errors: {errorTasks}");
+            Logger.LogInformation($"All tasks completed. Success: {successTasks}, Failures: {errorTasks}");
         }
     }
 }
