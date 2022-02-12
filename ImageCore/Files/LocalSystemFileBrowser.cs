@@ -6,13 +6,13 @@ using Microsoft.Extensions.Logging.Abstractions;
 namespace Image.Files
 {
     /// <summary>
-    ///     LocalSystemFilesRetriever reads files from the provided directory on the local system.
+    ///     LocalSystemFileBrowser reads files from the provided directory on the local system.
     /// </summary>
-    public class LocalSystemFilesRetriever : IFilesRetriever
+    public class LocalSystemFileBrowser : IFilesBrowser
     {
         public static ILogger Logger = NullLogger.Instance;
 
-        private LocalSystemFilesRetriever()
+        private LocalSystemFileBrowser()
         {
         }
 
@@ -27,9 +27,9 @@ namespace Image.Files
             return Directory.GetFiles(directoryPath, "*.*");
         }
 
-        public static LocalSystemFilesRetriever Create()
+        public static LocalSystemFileBrowser Create()
         {
-            return new LocalSystemFilesRetriever();
+            return new LocalSystemFileBrowser();
         }
     }
 }
