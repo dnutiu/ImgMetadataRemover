@@ -14,7 +14,11 @@ namespace ConsoleInterface
         /// <param name="directoryPath">The destination directory's path.</param>
         public static void CreateDestinationDirectory(string directoryPath)
         {
-            if (Directory.Exists(directoryPath)) return;
+            if (Directory.Exists(directoryPath))
+            {
+                return;
+            }
+
             Logger.LogWarning("Output directory does not exist. Creating.");
             Directory.CreateDirectory(directoryPath);
         }

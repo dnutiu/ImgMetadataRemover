@@ -14,7 +14,10 @@ public class TestSimpleOutputSink
     public TestSimpleOutputSink()
     {
         _testsProjectDirectory = Environment.GetEnvironmentVariable("IMAGE_CORE_TESTS");
-        if (_testsProjectDirectory == null) throw new Exception("Environment variable IMAGE_CORE_TESTS is not set!");
+        if (_testsProjectDirectory == null)
+        {
+            throw new Exception("Environment variable IMAGE_CORE_TESTS is not set!");
+        }
     }
 
     [Theory]

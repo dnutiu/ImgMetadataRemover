@@ -51,7 +51,11 @@ namespace ConsoleInterface
                     $"Cleaning {filePath}, compression {_options.EnableCompression}, outputFormatter {nameof(_options.OutputSink)}.");
 
                 ICompressor compressor = NullCompressor.Instance;
-                if (_options.EnableCompression) compressor = LosslessCompressor.Instance;
+                if (_options.EnableCompression)
+                {
+                    compressor = LosslessCompressor.Instance;
+                }
+
                 var imageMagick = new MagickImage(filePath);
                 IMetadataRemover metadataRemover = new ExifRemoverAndCompressor(imageMagick, compressor);
                 return outputSink.Save(metadataRemover);

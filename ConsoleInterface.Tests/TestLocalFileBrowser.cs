@@ -14,7 +14,10 @@ public class TestLocalFileBrowser
     public TestLocalFileBrowser()
     {
         _testsProjectDirectory = Environment.GetEnvironmentVariable("IMAGE_CORE_TESTS");
-        if (_testsProjectDirectory == null) throw new Exception("Environment variable IMAGE_CORE_TESTS is not set!");
+        if (_testsProjectDirectory == null)
+        {
+            throw new Exception("Environment variable IMAGE_CORE_TESTS is not set!");
+        }
     }
 
     [Fact]
@@ -39,6 +42,8 @@ public class TestLocalFileBrowser
 
         Assert.NotEmpty(filePathsList);
         for (var i = 0; i < filePathsList.Count; i++)
+        {
             Assert.Equal(expectedFileNames[i], Path.GetFileName(filePathsList[i]));
+        }
     }
 }

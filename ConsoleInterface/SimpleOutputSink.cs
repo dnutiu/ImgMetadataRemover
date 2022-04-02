@@ -24,9 +24,14 @@ namespace ConsoleInterface
         public SimpleOutputSink(string outputDirectory)
         {
             if (outputDirectory.Equals(""))
+            {
                 outputDirectory = ".";
+            }
             else
+            {
                 FileSystemHelpers.CreateDestinationDirectory(outputDirectory);
+            }
+
             _outputDirectory = outputDirectory;
         }
 
@@ -54,7 +59,9 @@ namespace ConsoleInterface
         {
             Logger.LogDebug($"KeepFilenameFormatter - {_outputDirectory} - {initialFilePath}");
             if (string.IsNullOrEmpty(initialFilePath))
+            {
                 throw new ArgumentException("The output file path cannot be null or empty!");
+            }
 
             var fileName = Path.GetFileName(initialFilePath).Split('.')[0];
             var path = Path.Combine(_outputDirectory, $"{fileName}.jpg");
