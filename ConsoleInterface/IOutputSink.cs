@@ -1,6 +1,6 @@
 ﻿using Image.Core;
 
-namespace Image.Files
+namespace Image
 {
     /// <summary>
     ///     IOutputSink is an interface for generating saving the generated files..
@@ -8,7 +8,7 @@ namespace Image.Files
     public interface IOutputSink
     {
         /// <summary>
-        /// Saves the image.
+        ///     Saves the image.
         /// </summary>
         /// <param name="metadataRemover">Metadata remover instance.</param>
         /// <returns>True if the image was saved successfully, false otherwise.</returns>

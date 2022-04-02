@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Image;
 using Image.Core;
-using Image.Files;
 using ImageMagick;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 
-namespace Image.Tasks
+namespace ConsoleInterface
 {
     /// <summary>
     ///     TaskExecutor is a helper class for executing tasks in parallel.
@@ -47,8 +47,9 @@ namespace Image.Tasks
         {
             try
             {
-                Logger.LogDebug($"Cleaning {filePath}, compression {_options.EnableCompression}, outputFormatter {nameof(_options.OutputSink)}.");
-                
+                Logger.LogDebug(
+                    $"Cleaning {filePath}, compression {_options.EnableCompression}, outputFormatter {nameof(_options.OutputSink)}.");
+
                 ICompressor compressor = NullCompressor.Instance;
                 if (_options.EnableCompression) compressor = LosslessCompressor.Instance;
                 var imageMagick = new MagickImage(filePath);

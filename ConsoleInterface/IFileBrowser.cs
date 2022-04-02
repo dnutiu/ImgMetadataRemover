@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Image.Files
+namespace ConsoleInterface
 {
     /// <summary>
     ///     An to interface enabling implementation of file browsers.

@@ -12,7 +12,7 @@
         void CleanImage(string newFilePath);
 
         /// <summary>
-        /// GetImagePath gets the current image path on the filesystem.
+        ///     GetImagePath gets the current image path on the filesystem.
         /// </summary>
         /// <returns>A string representing the absolute path.</returns>
         string GetImagePath();

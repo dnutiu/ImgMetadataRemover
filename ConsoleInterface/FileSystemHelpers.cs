@@ -2,14 +2,14 @@
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 
-namespace Image.Files
+namespace ConsoleInterface
 {
     public static class FileSystemHelpers
     {
         public static ILogger Logger = NullLogger.Instance;
-        
+
         /// <summary>
-        /// Creates the directory if it doesn't exist.
+        ///     Creates the directory if it doesn't exist.
         /// </summary>
         /// <param name="directoryPath">The destination directory's path.</param>
         public static void CreateDestinationDirectory(string directoryPath)
@@ -20,7 +20,7 @@ namespace Image.Files
         }
 
         /// <summary>
-        /// CheckIfFileExists checks if file exists.
+        ///     CheckIfFileExists checks if file exists.
         /// </summary>
         /// <param name="filePath">The path of the file to be checked.</param>
         /// <returns>Returns true if file exists, False otherwise.</returns>

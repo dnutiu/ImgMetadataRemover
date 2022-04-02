@@ -1,10 +1,11 @@
-﻿using System.IO;
-using Ardalis.GuardClauses;
+﻿using System;
+using System.IO;
+using Image;
 using Image.Core;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 
-namespace Image.Files
+namespace ConsoleInterface
 {
     /// <summary>
     ///     SimpleOutputFormatter keeps the original file name of the image when formatting it.
@@ -23,28 +24,10 @@ namespace Image.Files
         public SimpleOutputSink(string outputDirectory)
         {
             if (outputDirectory.Equals(""))
-            {
                 outputDirectory = ".";
-            }
             else
-            {
                 FileSystemHelpers.CreateDestinationDirectory(outputDirectory);
-            }
             _outputDirectory = outputDirectory;
-        }
-
-        /// <summary>
-        ///     Returns a path containing the file name in the output directory.
-        /// </summary>
-        /// <param name="initialFilePath">The initial path of the image.</param>
-        /// <returns>An absolute path of the form output_directory/initialFileName.jpg</returns>
-        public string GetOutputPath(string initialFilePath)
-        {
-            Logger.LogDebug($"KeepFilenameFormatter - {_outputDirectory} - {initialFilePath}");
-            Guard.Against.NullOrEmpty(initialFilePath, nameof(initialFilePath));
-            var fileName = Path.GetFileName(initialFilePath).Split('.')[0];
-            var path = Path.Combine(_outputDirectory, $"{fileName}.jpg");
-            return path;
         }
 
         public bool Save(IMetadataRemover metadataRemover)
@@ -56,9 +39,26 @@ namespace Image.Files
                 Logger.LogWarning($"File {newFilePath} exists, skipping");
                 return false;
             }
+
             // Save the image under the same name in the new directory.
             metadataRemover.CleanImage(newFilePath);
             return true;
+        }
+
+        /// <summary>
+        ///     Returns a path containing the file name in the output directory.
+        /// </summary>
+        /// <param name="initialFilePath">The initial path of the image.</param>
+        /// <returns>An absolute path of the form output_directory/initialFileName.jpg</returns>
+        public string GetOutputPath(string initialFilePath)
+        {
+            Logger.LogDebug($"KeepFilenameFormatter - {_outputDirectory} - {initialFilePath}");
+            if (string.IsNullOrEmpty(initialFilePath))
+                throw new ArgumentException("The output file path cannot be null or empty!");
+
+            var fileName = Path.GetFileName(initialFilePath).Split('.')[0];
+            var path = Path.Combine(_outputDirectory, $"{fileName}.jpg");
+            return path;
         }
 
         /// <summary>
