@@ -2,15 +2,14 @@
 
     <PropertyGroup>
         <RootNamespace>Image</RootNamespace>
-        <TargetFramework>net6.0</TargetFramework>
+        <TargetFrameworks>netstandard2.0;net6.0</TargetFrameworks>
         <LangVersion>8.0</LangVersion>
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Ardalis.GuardClauses" Version="4.0.0" />
-        <PackageReference Include="Magick.NET-Q16-AnyCPU" Version="8.6.1" />
-        <PackageReference Include="Magick.NET.Core" Version="8.6.1" />
-        <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="6.0.0" />
+        <PackageReference Include="Magick.NET-Q16-AnyCPU" Version="8.6.1"/>
+        <PackageReference Include="Magick.NET.Core" Version="8.6.1"/>
+        <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="6.0.0"/>
     </ItemGroup>
 
 </Project>
