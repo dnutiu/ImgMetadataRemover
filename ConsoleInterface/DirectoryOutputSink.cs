@@ -8,25 +8,30 @@ using Microsoft.Extensions.Logging.Abstractions;
 namespace ConsoleInterface
 {
     /// <summary>
-    ///     SimpleOutputFormatter keeps the original file name of the image when formatting it.
-    ///     SimpleOutputFormatter also saves all the file names into a new directory.
+    ///     DirectoryOutputSink keeps the original file name of the image when formatting it.
+    ///     DirectoryOutputSink also saves all the file names into a new directory.
     ///     path.
     /// </summary>
-    public class SimpleOutputSink : IOutputSink
+    public class DirectoryOutputSink : IOutputSink
     {
         public static ILogger Logger = NullLogger.Instance;
         private readonly string _outputDirectory;
 
         /// <summary>
-        ///     Creates an instance of SimpleOutputFormatter.
+        ///     Creates an instance of DirectoryOutputSink.
         /// </summary>
         /// <param name="outputDirectory">The output directory.</param>
-        public SimpleOutputSink(string outputDirectory)
+        public DirectoryOutputSink(string outputDirectory)
         {
             if (outputDirectory.Equals(""))
+            {
                 outputDirectory = ".";
+            }
             else
+            {
                 FileSystemHelpers.CreateDestinationDirectory(outputDirectory);
+            }
+
             _outputDirectory = outputDirectory;
         }
 
@@ -41,7 +46,8 @@ namespace ConsoleInterface
             }
 
             // Save the image under the same name in the new directory.
-            metadataRemover.CleanImage(newFilePath);
+            metadataRemover.CleanImage();
+            metadataRemover.SaveImage(newFilePath);
             return true;
         }
 
@@ -54,7 +60,9 @@ namespace ConsoleInterface
         {
             Logger.LogDebug($"KeepFilenameFormatter - {_outputDirectory} - {initialFilePath}");
             if (string.IsNullOrEmpty(initialFilePath))
+            {
                 throw new ArgumentException("The output file path cannot be null or empty!");
+            }
 
             var fileName = Path.GetFileName(initialFilePath).Split('.')[0];
             var path = Path.Combine(_outputDirectory, $"{fileName}.jpg");
@@ -62,12 +70,12 @@ namespace ConsoleInterface
         }
 
         /// <summary>
-        ///     Creates an instance of OriginalFilenameFileOutputPathFormatter.
+        ///     Creates an instance of DirectoryOutputSink.
         /// </summary>
         /// <param name="outputDirectory">The output directory.</param>
-        public static SimpleOutputSink Create(string outputDirectory)
+        public static DirectoryOutputSink Create(string outputDirectory)
         {
-            return new SimpleOutputSink(outputDirectory);
+            return new DirectoryOutputSink(outputDirectory);
         }
     }
 }

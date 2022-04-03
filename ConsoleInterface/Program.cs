@@ -29,7 +29,7 @@ namespace ConsoleInterface
         private static void RunOptions(ProgramOptions options)
         {
             SetupLogging(options.LogLevel);
-            var outputFormatter = SimpleOutputSink.Create(options.DestinationDirectory);
+            var outputFormatter = DirectoryOutputSink.Create(options.DestinationDirectory);
             var executor = TaskExecutor.Create(new TaskExecutorOptions
             {
                 EnableCompression = options.CompressFiles is true,
@@ -105,8 +105,8 @@ namespace ConsoleInterface
             // File Retriever
             LocalFileBrowser.Logger = _loggerFactory.CreateLogger(nameof(LocalFileBrowser));
             // FileName formatter
-            SimpleOutputSink.Logger =
-                _loggerFactory.CreateLogger(nameof(SimpleOutputSink));
+            DirectoryOutputSink.Logger =
+                _loggerFactory.CreateLogger(nameof(DirectoryOutputSink));
             FileSystemHelpers.Logger = _loggerFactory.CreateLogger(nameof(FileSystemHelpers));
             Logger.LogTrace("SetupLogging - exit");
         }

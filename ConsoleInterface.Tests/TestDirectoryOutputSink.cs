@@ -7,14 +7,17 @@ using Xunit;
 
 namespace ConsoleInterface.Tests;
 
-public class TestSimpleOutputSink
+public class TestDirectoryOutputSink
 {
     private readonly string? _testsProjectDirectory;
 
-    public TestSimpleOutputSink()
+    public TestDirectoryOutputSink()
     {
         _testsProjectDirectory = Environment.GetEnvironmentVariable("IMAGE_CORE_TESTS");
-        if (_testsProjectDirectory == null) throw new Exception("Environment variable IMAGE_CORE_TESTS is not set!");
+        if (_testsProjectDirectory == null)
+        {
+            throw new Exception("Environment variable IMAGE_CORE_TESTS is not set!");
+        }
     }
 
     [Theory]
@@ -24,14 +27,14 @@ public class TestSimpleOutputSink
     [InlineData("dir", "asd", @"dir\asd.jpg")]
     public void TestGetOutputPath(string directory, string file, string expectedPath)
     {
-        var sink = SimpleOutputSink.Create(directory);
+        var sink = DirectoryOutputSink.Create(directory);
         Assert.Equal(expectedPath, sink.GetOutputPath(file));
     }
 
     [Fact]
     public void TestGetOutputPathNull()
     {
-        var sink = SimpleOutputSink.Create("directory");
+        var sink = DirectoryOutputSink.Create("directory");
         Assert.Throws<ArgumentException>(() => sink.GetOutputPath(""));
     }
 
@@ -39,7 +42,7 @@ public class TestSimpleOutputSink
     public void TestSave()
     {
         // Setup
-        var sink = SimpleOutputSink.Create("directory");
+        var sink = DirectoryOutputSink.Create("directory");
         var metadataRemoverMock = new Mock<IMetadataRemover>();
         metadataRemoverMock.Setup(i => i.GetImagePath()).Returns("alo.wtf");
 
@@ -47,7 +50,8 @@ public class TestSimpleOutputSink
         sink.Save(metadataRemoverMock.Object);
 
         // Assert
-        metadataRemoverMock.Verify(i => i.CleanImage("directory\\alo.jpg"));
+        metadataRemoverMock.Verify(i => i.CleanImage());
+        metadataRemoverMock.Verify(i => i.SaveImage("directory\\alo.jpg"));
     }
 
     [Fact]
@@ -55,7 +59,7 @@ public class TestSimpleOutputSink
     {
         // Setup
         Debug.Assert(_testsProjectDirectory != null, nameof(_testsProjectDirectory) + " != null");
-        var sink = SimpleOutputSink.Create(Path.Combine(_testsProjectDirectory, "test_pictures"));
+        var sink = DirectoryOutputSink.Create(Path.Combine(_testsProjectDirectory, "test_pictures"));
         var metadataRemoverMock = new Mock<IMetadataRemover>();
         var sourceFileName = Path.Combine(_testsProjectDirectory, "test_pictures\\IMG_0138.HEIC");
         metadataRemoverMock.Setup(i => i.GetImagePath()).Returns(sourceFileName);
@@ -64,6 +68,7 @@ public class TestSimpleOutputSink
         sink.Save(metadataRemoverMock.Object);
 
         // Assert
-        metadataRemoverMock.Verify(i => i.CleanImage(It.IsAny<string>()), Times.Never);
+        metadataRemoverMock.Verify(i => i.CleanImage(), Times.Never);
+        metadataRemoverMock.Verify(i => i.SaveImage(It.IsAny<string>()), Times.Never);
     }
 }

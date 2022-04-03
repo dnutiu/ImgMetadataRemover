@@ -1,4 +1,5 @@
-﻿using ImageMagick;
+﻿using System.IO;
+using ImageMagick;
 
 namespace Image.Core
 {
@@ -22,12 +23,19 @@ namespace Image.Core
         }
 
         /// <summary>
-        ///     Cleans the images and compresses it.
+        ///     Cleans the image.
         /// </summary>
-        /// <param name="newFilePath">The file path to save the clean image.</param>
-        public void CleanImage(string newFilePath)
+        public void CleanImage()
         {
             _magickImage.RemoveProfile("exif");
+        }
+
+        /// <summary>
+        ///     Save the image under a new file path.
+        /// </summary>
+        /// <param name="newFilePath">The new path of the image.</param>
+        public void SaveImage(string newFilePath)
+        {
             _magickImage.Write(newFilePath);
             _compressor.Compress(newFilePath);
         }
@@ -36,6 +44,16 @@ namespace Image.Core
         public string GetImagePath()
         {
             return _magickImage.FileName;
+        }
+
+        /// <summary>
+        ///     Saves the image.
+        /// </summary>
+        /// <param name="stream">The stream.</param>
+        public void SaveImage(Stream stream)
+        {
+            _magickImage.Write(stream);
+            _compressor.Compress(stream);
         }
     }
 }

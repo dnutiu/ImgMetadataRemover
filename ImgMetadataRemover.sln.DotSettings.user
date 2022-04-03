@@ -6,5 +6,10 @@
 &lt;/AssemblyExplorer&gt;</s:String>
 	
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=761234b5_002D46ba_002D4312_002Dab60_002Dd15d5d83a61a/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="TestGetFilenamesFromPath" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
-  &lt;Project Location="C:\Users\nutiu\RiderProjects\ImgMetadataRemover\ImageCore.Tests" Presentation="&amp;lt;ImageCore.Tests&amp;gt;" /&gt;&#xD;
+  &lt;Or&gt;&#xD;
+    &lt;Project Location="C:\Users\nutiu\RiderProjects\ImgMetadataRemover\ImageCore.Tests" Presentation="&amp;lt;ImageCore.Tests&amp;gt;" /&gt;&#xD;
+    &lt;TestAncestor&gt;&#xD;
+      &lt;TestId&gt;xUnit::B915AC83-B6E9-4E0A-BA88-915F629F57C8::net6.0::ConsoleInterface.Tests.TestSimpleOutputSink&lt;/TestId&gt;&#xD;
+    &lt;/TestAncestor&gt;&#xD;
+  &lt;/Or&gt;&#xD;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>

@@ -1,4 +1,6 @@
-﻿namespace Image.Core
+﻿using System.IO;
+
+namespace Image.Core
 {
     /// <summary>
     ///     Does nothing. Using this Compressor will have no effect.
@@ -11,6 +13,10 @@
         ///     <inheritdoc />
         /// </summary>
         public void Compress(string fileName)
+        {
+        }
+
+        public void Compress(Stream stream)
         {
         }
     }
