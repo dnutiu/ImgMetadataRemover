@@ -5,7 +5,7 @@ using Xunit;
 
 namespace ImageCore.Tests
 {
-    public class TestMetadataRemover
+    public class TestExifRemoverAndCompressor
     {
         [Fact]
         public void TestExifRemoverAndCompressorCleanImage()
@@ -16,7 +16,8 @@ namespace ImageCore.Tests
             var metadataRemover = new ExifRemoverAndCompressor(magicImageMock.Object, compressorMock.Object);
 
             // Test
-            metadataRemover.CleanImage("path");
+            metadataRemover.CleanImage();
+            metadataRemover.SaveImage("path");
 
             // Assert
             magicImageMock.Verify(i => i.RemoveProfile("exif"));
