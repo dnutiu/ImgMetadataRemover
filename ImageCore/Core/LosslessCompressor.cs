@@ -1,4 +1,5 @@
-﻿using ImageMagick;
+﻿using System.IO;
+using ImageMagick;
 
 namespace Image.Core
 {
@@ -21,6 +22,14 @@ namespace Image.Core
         public void Compress(string fileName)
         {
             _imageOptimizer.LosslessCompress(fileName);
+        }
+
+        /// <summary>
+        ///     <inheritdoc />
+        /// </summary>
+        public void Compress(Stream stream)
+        {
+            _imageOptimizer.LosslessCompress(stream);
         }
     }
 }
