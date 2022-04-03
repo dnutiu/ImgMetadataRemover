@@ -1,0 +1,60 @@
+﻿<Page
+    x:Class="UwpApplication.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:UwpApplication"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Page.Resources>
+
+        <ItemsPanelTemplate x:Key="ImageGridViewItemsPanelTemplate">
+            <ItemsWrapGrid Orientation="Horizontal"
+                           HorizontalAlignment="Center" />
+        </ItemsPanelTemplate>
+
+        <DataTemplate x:Key="ImageGridViewDefaultItemTemplate" x:DataType="local:ImageFileInfo">
+            <Grid Height="200"
+                  Width="200"
+                  Margin="0,0,0,8">
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Image x:Name="ItemImage"
+                       Source="{x:Bind ImageSource}"
+                       Stretch="Uniform" />
+                <StackPanel Orientation="Vertical"
+                            Grid.Row="1">
+                    <TextBlock Text="{x:Bind Name}"
+                               HorizontalAlignment="Center"
+                               Style="{StaticResource SubtitleTextBlockStyle}" />
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <TextBlock>CleanFalse Icon</TextBlock>
+                        <TextBlock>CompressedFalse Icon</TextBlock>
+                    </StackPanel>
+                </StackPanel>
+            </Grid>
+        </DataTemplate>
+
+    </Page.Resources>
+
+    <RelativePanel>
+        <TextBlock x:Name="TitleTextBlock" Text="Image Metadata Remover" Margin="24,0,0,24"
+                   Style="{StaticResource HeaderTextBlockStyle}" />
+        <StackPanel Orientation="Horizontal">
+            <Button x:Name="PickFilesButton" Content="Pick Files" Margin="24,80,0,24" Click="PickFilesButton_Click" />
+            <Button x:Name="CleanFilesButton" Content="Clean Files" Margin="24,80,0,24" Click="CleanFilesButton_Click" />
+        </StackPanel>
+        <GridView x:Name="ImageGridView"
+                  Margin="0,100,0,8"
+                  RelativePanel.AlignLeftWithPanel="True"
+                  RelativePanel.AlignRightWithPanel="True"
+                  RelativePanel.Below="TitleTextBlock"
+                  ItemsSource="{x:Bind Images, Mode=OneWay}"
+                  ItemsPanel="{StaticResource ImageGridViewItemsPanelTemplate}"
+                  ItemTemplate="{StaticResource ImageGridViewDefaultItemTemplate}" />
+    </RelativePanel>
+</Page>
